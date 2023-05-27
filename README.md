@@ -1,2 +1,3 @@
 # pGS-CAM
-Codes for paper pGS-CAM: INTERPRETABLE LIDAR POINT CLOUD SEMANTIC SEGMENTATION VIA GRADIENT BASED LOCALIZATION
+Codes for paper pGS-CAM: Interpretable LiDAR point cloud semantic segmentation via gradient based localization.
+
