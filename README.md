@@ -1,6 +1,6 @@
 # pGS-CAM
-Codes for paper pGS-CAM: Interpretable LiDAR point cloud semantic segmentation via gradient based localization.
+Codes for paper pGS-CAM: Interpretable LiDAR point cloud semantic segmentation via gradient based localization.\
 
-Head to the KPConv directory to access the pGS-CAM implementation for KPConv.__
-Head to the RandLA-Net directory to access the pGS-CAM implementation for RandLANet.__
+Head to the KPConv directory to access the pGS-CAM implementation for KPConv.\
+Head to the RandLA-Net directory to access the pGS-CAM implementation for RandLANet.\
 
