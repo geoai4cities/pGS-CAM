@@ -237,89 +237,64 @@ def train(start_epoch):
 # For testing pGS-CAM
 
 if __name__ == '__main__':
-    mean_IoU = np.array([0])
-    counter = 0
+    # mean_IoU = np.array([0])
+    # counter = 0
     print(len(TEST_DATALOADER))
-    MIOU_HIGH = []
-    CIOU_HIGH = []
-    MIOU_LOW = []
-    CIOU_LOW = []
+    # MIOU_HIGH = []
+    # CIOU_HIGH = []
+    # MIOU_LOW = []
+    # CIOU_LOW = []
     
     for num_batch, batch_data in enumerate(tqdm(TEST_DATALOADER)):
-        for key in batch_data:
-            if type(batch_data[key]) is list:
-                for i in range(len(batch_data[key])):
-                    batch_data[key][i] = batch_data[key][i].cuda()
-            else:
-                batch_data[key] = batch_data[key].cuda()
+#         for key in batch_data:
+#             if type(batch_data[key]) is list:
+#                 for i in range(len(batch_data[key])):
+#                     batch_data[key][i] = batch_data[key][i].cuda()
+#             else:
+#                 batch_data[key] = batch_data[key].cuda()
         
-#         print("Points shape: ", batch_data['xyz'][0].shape)
+# #         print("Points shape: ", batch_data['xyz'][0].shape)
         
-        attack = Drop_attack()
-        miou_high_collect, ciou_high_collect = attack.drop(net, batch_data, cfg, cls=eval_class, drop_type='high')
-        miou_low_collect, ciou_low_collect = attack.drop(net, batch_data, cfg, cls=eval_class, drop_type='low')
-        MIOU_HIGH.append(miou_high_collect)
-        CIOU_HIGH.append(ciou_high_collect)
-        MIOU_LOW.append(miou_low_collect)
-        CIOU_LOW.append(ciou_low_collect)
+#         attack = Drop_attack()
+#         miou_high_collect, ciou_high_collect = attack.drop(net, batch_data, cfg, cls=eval_class, drop_type='high')
+#         miou_low_collect, ciou_low_collect = attack.drop(net, batch_data, cfg, cls=eval_class, drop_type='low')
+#         MIOU_HIGH.append(miou_high_collect)
+#         CIOU_HIGH.append(ciou_high_collect)
+#         MIOU_LOW.append(miou_low_collect)
+    #     CIOU_LOW.append(ciou_low_collect)
         
-        if num_batch > 100:
+    #     if num_batch > 100:
+    #         break
+        
+    # MIOU_HIGH = np.array(MIOU_HIGH)
+    # CIOU_HIGH = np.array(CIOU_HIGH)
+    # MIOU_LOW = np.array(MIOU_LOW)
+    # CIOU_LOW = np.array(CIOU_LOW)
+    
+    # MIOU_HIGH_AVERAGE = np.sum(MIOU_HIGH, axis=0) / (MIOU_HIGH.shape[0])
+    # CIOU_HIGH_AVERAGE = np.sum(CIOU_HIGH, axis=0) / (CIOU_HIGH.shape[0])
+    # MIOU_LOW_AVERAGE = np.sum(MIOU_LOW, axis=0) / (MIOU_LOW.shape[0])
+    # CIOU_LOW_AVERAGE = np.sum(CIOU_LOW, axis=0) / (CIOU_LOW.shape[0])
+    # print("MIOU_HIGH_AVERAGE: ", MIOU_HIGH_AVERAGE)
+    # print("Class HIGH IOU AVERAGE: ", CIOU_HIGH_AVERAGE)
+    # print("MIOU_LOW_AVERAGE: ", MIOU_LOW_AVERAGE)
+    # print("Class LOW IOU AVERAGE: ", CIOU_LOW_AVERAGE)
+    
+        
+        
+        
+        
+        if num_points > 1000:
             break
-        
-    MIOU_HIGH = np.array(MIOU_HIGH)
-    CIOU_HIGH = np.array(CIOU_HIGH)
-    MIOU_LOW = np.array(MIOU_LOW)
-    CIOU_LOW = np.array(CIOU_LOW)
-    
-    MIOU_HIGH_AVERAGE = np.sum(MIOU_HIGH, axis=0) / (MIOU_HIGH.shape[0])
-    CIOU_HIGH_AVERAGE = np.sum(CIOU_HIGH, axis=0) / (CIOU_HIGH.shape[0])
-    MIOU_LOW_AVERAGE = np.sum(MIOU_LOW, axis=0) / (MIOU_LOW.shape[0])
-    CIOU_LOW_AVERAGE = np.sum(CIOU_LOW, axis=0) / (CIOU_LOW.shape[0])
-    print("MIOU_HIGH_AVERAGE: ", MIOU_HIGH_AVERAGE)
-    print("Class HIGH IOU AVERAGE: ", CIOU_HIGH_AVERAGE)
-    print("MIOU_LOW_AVERAGE: ", MIOU_LOW_AVERAGE)
-    print("Class LOW IOU AVERAGE: ", CIOU_LOW_AVERAGE)
-    
+        else:
+            continue
         
         
-        
-        
-#         if num_points > 1000:
-#             break
-#         else:
-#             continue
-
-#         cam = piecewise_pGSCAM(net, batch_data, cfg, norm=False, cls=eval_class)
-#         num_points = cam.runCAM()
-        
-        
-#         cam = PowerCAM(net, batch_data, cfg, norm=True, cls=eval_class, mode='normal', mask_type='none')
-#         num_points = cam.runCAM()
-#         print(num_points)
-        
-#         cam = PowerCAM(net, batch_data, cfg, norm=True, cls=8, mode='counterfactual', mask_type='none')
-#         num_points = cam.runCAM()
-#         print(num_points)
-        
-        
-#         cam = PowerCAM(net, batch_data, cfg, norm=True, cls=8, mode='counterfactual', mask_type='none')
-#         num_points = cam.runCAM()
-#         print(num_points)
-        
-
-#         IoU = cam.getmIoU()
-
-#         if num_points > 1000:
-#             IoU = np.array(IoU)
-#             print(IoU)
-#             mean_IoU = mean_IoU + IoU
-#             counter += 1
-#             break
-#         else:
-#             continue
+        cam = PowerCAM(net, batch_data, cfg, norm=True, cls=8, mode='counterfactual', mask_type='none')
+        num_points = cam.runCAM()
+        print(num_points)
 
 
-#     print(mean_IoU/counter)
     
 
 # Training Loop
