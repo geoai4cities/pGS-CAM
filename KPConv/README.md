@@ -2,7 +2,7 @@ Train the model for certain epochs. Checkpoints will be stored in results direct
 Evaluation script will generate pGS-CAM heatmaps.
 
 Example case:-\
-To train NPM3D:-\ 
+To train NPM3D:-\
 train_NPM3D.py
 
 To obtain pGS-CAM for NPM3D:-\
